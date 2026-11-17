@@ -93,3 +93,9 @@
 | AC-CARD-14 | «Held» робить клієнта своїм лише до початку слоту, минулий «Confirmed» — без обмеження | `supabase/migrations/20261027073004_client_cards_clarify.sql` (`is_client_of_current_therapist`), `src/app/clients/page.tsx`, `src/app/clients/[id]/page.tsx` | `tests/db/client-access.test.ts` | реалізовано |
 | AC-CARD-15 | порожній список клієнтів для планувальника й адміністратора | `src/app/clients/page.tsx`, `src/lib/clients/card.ts` (`NO_CARDS_YET`) | `tests/db/client-cards.test.ts`, `tests/clients/card.test.ts`, `tests/clients/pages.test.tsx` | реалізовано |
 | AC-CARD-16 | картка, якої немає: «This client card doesn't exist.» / як для чужої | `src/app/clients/[id]/page.tsx`, `src/lib/clients/card.ts` (`CARD_NOT_FOUND`) | `tests/db/client-access.test.ts`, `tests/clients/card.test.ts`, `tests/clients/pages.test.tsx` | реалізовано |
+| AC-INS-01 | картка без позначки — «Insurance: Not set» | — | — | відкладено (чекає реалізації: фабрика у двійнику) |
+| AC-INS-02 | планувальник позначає «Verified» — «Insurance status saved.», статус зберігся | — | — | відкладено (чекає реалізації: фабрика у двійнику) |
+| AC-INS-03 | адміністратор змінює на «Private pay», інший планувальник бачить | — | — | відкладено (чекає реалізації: фабрика у двійнику) |
+| AC-INS-04 | терапевт бачить статус свого клієнта без зміни | — | — | відкладено (чекає реалізації: фабрика у двійнику) |
+| AC-INS-05 | терапевт напряму не змінює статус | — | — | відкладено (чекає реалізації: фабрика у двійнику) |
+| AC-INS-06 | без входу — лише сторінка входу, статус не змінився | — | — | відкладено (чекає реалізації: фабрика у двійнику) |
