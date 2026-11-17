@@ -1,4 +1,6 @@
-Прод: https://therapy-scheduling-sigma.vercel.app
+Двійник для фабрики (бонус WS9) — **не основний проєкт**: власного проду ще немає (Vercel і Supabase двійника не
+підключено), фабрику не запускали. Основне репо й прод — https://github.com/maryan-qc/therapy-scheduling і
+https://therapy-scheduling-sigma.vercel.app (їх двійник не чіпає).
 
 # Шаблон проєкту розробника: Next.js + Supabase + OpenSpec
 
