@@ -16,10 +16,9 @@ on:
   # Vercel шле repository_dispatch після кожного деплою (vercel.com/docs/git/vercel-for-github); беремо лише production.
   repository_dispatch:
     types: [vercel.deployment.success]
-  # Двійник: розклад вимкнено, доки немає власного проду й змінної PROD_URL (інакше щодня червоний прогін;
-  # рев'ю викладача WS9). Повернути разом із підключенням Vercel/Supabase двійника.
-  # schedule:
-  #   - cron: "23 5 * * *" # щодня ≈ 07:23 за Києвом (зимовий час): прод живий, база не «заснула»
+  # Двійник: власний прод є (Vercel і Supabase двійника, змінна PROD_URL) — щоденний розклад повернуто.
+  schedule:
+    - cron: "23 5 * * *" # щодня ≈ 07:23 за Києвом (зимовий час): прод живий, база не «заснула»
   workflow_dispatch:
 
 permissions:

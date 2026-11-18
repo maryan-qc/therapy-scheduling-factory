@@ -1,5 +1,6 @@
-Двійник для фабрики (бонус WS9) — **не основний проєкт**: власного проду ще немає (Vercel і Supabase двійника не
-підключено), фабрику не запускали. Основне репо й прод — https://github.com/maryan-qc/therapy-scheduling і
+Двійник для фабрики (бонус WS9) — **не основний проєкт**. Власний прод двійника — https://therapy-scheduling-twin-mq-factory.vercel.app
+(окремі Vercel і Supabase). Зріз 3 (статус перевірки страхування, AC-INS-01…06) реалізувала фабрика курсу: PR #4, UAT —
+`docs/qa/uat/2026-11-18/report.md`. Основне репо й прод — https://github.com/maryan-qc/therapy-scheduling і
 https://therapy-scheduling-sigma.vercel.app (їх двійник не чіпає).
 
 # Шаблон проєкту розробника: Next.js + Supabase + OpenSpec
