@@ -1,0 +1,4 @@
+{"id":"appr-20261118095435-353c93","kind":"config","subject":"factory","digest":"bfbd023f38569ef504571aafdd617fb9cb4cc8f2a6a0116d52a0b0a603f056a0","by":"maryan-qc","note":"користувач: «давай» 2026-11-18","at":"2026-11-18T09:54:35.353Z"}
+{"id":"appr-20261118095435-b5aa41","kind":"intent","subject":"ins","digest":"43014ccdc97f79f7e3baddbe79fbd06c3f438813a2ec2ff016cf6dcb0b835bda","by":"maryan-qc","note":"","at":"2026-11-18T09:54:35.392Z"}
+{"id":"appr-20261118101121-49ab78","kind":"config","subject":"factory","digest":"f780a4a53376a4d34a9020139aaca67a6bc9570f2b7264135d6df639d735d117","by":"maryan-qc","note":"користувач: «так» 2026-11-18 — agent.executable = обгортка macOS (USER)","at":"2026-11-18T10:11:21.223Z"}
+{"id":"appr-20261118114730-ec2d19","kind":"plan","subject":"run-20261118101125-a92daa","digest":"fd3a25294eb70127e66826f67a77ceba57aeae77db3309530bf2f827adc0944f","by":"maryan-qc","note":"","at":"2026-11-18T11:47:30.270Z"}

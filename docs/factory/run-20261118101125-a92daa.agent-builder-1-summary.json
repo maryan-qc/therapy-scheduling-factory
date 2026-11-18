@@ -1,0 +1,38 @@
+{
+  "status": "completed",
+  "costUsd": 0.31379010000000007,
+  "usage": {
+    "input_tokens": 30,
+    "output_tokens": 10079,
+    "cache_read_input_tokens": 406921,
+    "cache_creation_input_tokens": 43062
+  },
+  "model": "claude-sonnet-5-5",
+  "denials": [
+    {
+      "tool_name": "Bash",
+      "tool_use_id": "toolu_01GKqEbXJ45pbfRW41kjiz2i",
+      "tool_input": {
+        "command": "cat .factory/progress.md .factory/plan.md .factory/knowledge/conventions.md; cat src/lib/clients/card.ts src/app/clients/actions.ts \"src/app/clients/[id]/page.tsx\"; ls supabase/migrations | tail -5; cat docs/conformance.md | grep -n \"INS\\|CARD-01\""
+      }
+    },
+    {
+      "tool_name": "Bash",
+      "tool_use_id": "toolu_014xtUzLHqbN3D6ia3mCdFy2",
+      "tool_input": {
+        "command": "ls src/components/ui"
+      }
+    },
+    {
+      "tool_name": "Bash",
+      "tool_use_id": "toolu_015Vjv3XKeBEqeVeeff3Bqi9",
+      "tool_input": {
+        "command": "sed -i '' -e '96,101s#| — |#| `supabase/migrations/20261118100000_insurance_status.sql`, `src/lib/clients/insurance.ts`, `src/lib/clients/card.ts`, `src/app/clients/actions.ts`, `src/app/clients/[id]/page.tsx` |#' -e '96,101s#відкладено (чекає реалізації: фабрика у двійнику)#реалізовано#' docs/conformance.md"
+      }
+    }
+  ],
+  "resultText": "Insurance status is now on the client card and can be set by schedulers and admins. The full factory run, with typecheck, lint and ac-coverage, passes: all 134 TAP lines are `ok`, including AC-INS-01…06.\n\n- **Database:** the new migration `supabase/migrations/20261118100000_insurance_status.sql` adds `clients.insurance_status` (default `not_set`, with the four-value check). It also adds `public.set_insurance_status(p_client_id, p_status)`:\n  - It is `security definer` with `search_path = ''`.\n  - It checks the role first, then the status value, then whether the client exists.\n  - It returns `OK`, `FORBIDDEN`, `INVALID_STATUS` or `NOT_FOUND`.\n  - Execute is granted to `authenticated` only, and there is no UPDATE grant on `clients`.\n- **Domain:** `src/lib/clients/insurance.ts` has `INSURANCE_STATUSES`, `insuranceLabel` and `INSURANCE_SAVED`. A `Map` lookup makes unknown values, including inherited keys like `constructor`, fall back to \"Insurance: Not set\".\n- **Card:** `CARD_COLUMNS` and `ClientCardRow` in `src/lib/clients/card.ts` now include `insurance_status`, and I added the column and the function to `database.types.ts` by hand.\n- **Page and action:**\n  - The card page shows the status in `data-testid=\"insurance-status\"` to everyone who can see the card.\n  - Schedulers and admins also get `insurance-form`, with a select (no \"Not set\" option), a hidden `client_id` and a «Save insurance status» button. Therapists get no form.\n  - `setInsuranceStatus` in `src/app/clients/actions.ts` calls the RPC and redirects to `?ok=insurance` on `OK`. Any other code or an RPC error redirects to `?error=<code>`, using `SAVE_FAILED` for RPC errors.\n- **Docs:** rows AC-INS-01…06 in `docs/conformance.md` now say «реалізовано» and list their code paths.\n\n**Not verified:**\n- The `?error=<code>` redirect is not covered by a visible test.\n- The page doesn't show a message for `?error=`, because you said not to invent any other user-facing text. A failed save therefore shows no feedback beyond the missing success message.\n- The proxy redirect to `/login` is unchanged, and AC-INS-06 passes in the test suite. The production UAT on the twin is outside this task.",
+  "sessionId": "c88173c7-b8d6-48e3-81f5-d0cee29a5fb8",
+  "durationMs": 85488,
+  "turns": 40
+}
