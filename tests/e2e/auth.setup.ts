@@ -11,15 +11,18 @@
 import { expect, test as setup, type Page } from "@playwright/test";
 import { signIn } from "./support/uat";
 
-// Наше: лише акаунти трьох AC WS8 (адміністратора UAT не бере — найменші права). Ключ — назва файлу стану.
+// Наше: лише акаунти, яких потребують AC (найменші права); адміністратора — лише для AC-INS-03, де діє саме admin1.
+// Ключ — назва файлу стану.
 // signedIn — ознака входу: шапка (Nav) з email того, хто увійшов (data-testid="viewer"); у користувача без ролі шапки
 // немає — лише повідомлення на головній (data-testid="no-role").
 const viewer = (email: string) => (page: Page) => page.getByTestId("viewer").filter({ hasText: email });
 const ROLES = {
-  therapist: { email: "therapist1@example.test", signedIn: viewer("therapist1@example.test") }, // AC-CARD-05
+  therapist: { email: "therapist1@example.test", signedIn: viewer("therapist1@example.test") }, // AC-CARD-05, AC-INS-04
   therapist2: { email: "therapist2@example.test", signedIn: viewer("therapist2@example.test") }, // «Дано» AC-CARD-05
-  scheduler: { email: "scheduler1@example.test", signedIn: viewer("scheduler1@example.test") }, // AC-CARD-12
+  scheduler: { email: "scheduler1@example.test", signedIn: viewer("scheduler1@example.test") }, // AC-CARD-12, AC-INS-*
   norole: { email: "newuser1@example.test", signedIn: (page: Page) => page.getByTestId("no-role") }, // AC-CARD-11
+  admin: { email: "admin1@example.test", signedIn: viewer("admin1@example.test") }, // AC-INS-03
+  scheduler2: { email: "scheduler2@example.test", signedIn: viewer("scheduler2@example.test") }, // AC-INS-03
 } as const;
 
 for (const [role, { email, signedIn }] of Object.entries(ROLES)) {
