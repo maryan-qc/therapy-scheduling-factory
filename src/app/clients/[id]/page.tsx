@@ -12,8 +12,12 @@ import {
   NOT_PROVIDED,
   type ClientCardRow,
 } from "@/lib/clients/card";
+import { INSURANCE_OPTION_LABEL, INSURANCE_SAVED, INSURANCE_STATUSES, insuranceLabel } from "@/lib/clients/insurance";
 import { isStaff } from "@/lib/holds/types";
 import { requireViewer } from "@/lib/supabase/viewer";
+import { setInsuranceStatus } from "@/app/clients/actions";
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
+import { SubmitButton } from "@/components/ui/submit-button";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -50,14 +54,32 @@ export default async function ClientCardPage({ params, searchParams }: PageProps
         </Link>
         {client ? (
           <>
-            <ActionAlerts ok={query.ok === "created" ? "Client created." : undefined} />
+            <ActionAlerts
+              ok={query.ok === "created" ? "Client created." : query.ok === "insurance" ? INSURANCE_SAVED : undefined}
+            />
             <Card className="max-w-2xl">
               <CardHeader>
                 <CardTitle>
                   <h1 className="text-xl font-semibold tracking-tight">{client.name}</h1>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex flex-col gap-4">
+                <p className="text-sm font-medium" data-testid="insurance-status">
+                  {insuranceLabel(client.insurance_status)}
+                </p>
+                {staff ? (
+                  <form action={setInsuranceStatus} className="flex items-center gap-2" data-testid="insurance-form">
+                    <input type="hidden" name="client_id" value={client.id} />
+                    <NativeSelect name="insurance_status">
+                      {INSURANCE_STATUSES.map((status) => (
+                        <NativeSelectOption key={status} value={status}>
+                          {INSURANCE_OPTION_LABEL[status]}
+                        </NativeSelectOption>
+                      ))}
+                    </NativeSelect>
+                    <SubmitButton>Save insurance status</SubmitButton>
+                  </form>
+                ) : null}
                 <dl className="grid grid-cols-[max-content_1fr] gap-x-6 gap-y-2 text-sm" data-testid="client-card">
                   <Field label="Type" value={clientTypeLabel(client.client_type)} />
                   <Field label="Name" value={client.name} />

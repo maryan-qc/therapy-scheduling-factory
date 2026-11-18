@@ -11,6 +11,20 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
+type ClientInsert = {
+  id?: string;
+  name: string;
+  email?: string | null;
+  client_type?: string;
+  date_of_birth?: string | null;
+  session_language?: string | null;
+  guardian_name?: string | null;
+  guardian_email?: string | null;
+  insurance_status?: string;
+  created_by?: string | null;
+  created_at?: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -98,33 +112,12 @@ export type Database = {
           session_language: string | null;
           guardian_name: string | null;
           guardian_email: string | null;
+          insurance_status: string;
           created_by: string | null;
           created_at: string;
         };
-        Insert: {
-          id?: string;
-          name: string;
-          email?: string | null;
-          client_type?: string;
-          date_of_birth?: string | null;
-          session_language?: string | null;
-          guardian_name?: string | null;
-          guardian_email?: string | null;
-          created_by?: string | null;
-          created_at?: string;
-        };
-        Update: {
-          id?: string;
-          name?: string;
-          email?: string | null;
-          client_type?: string;
-          date_of_birth?: string | null;
-          session_language?: string | null;
-          guardian_name?: string | null;
-          guardian_email?: string | null;
-          created_by?: string | null;
-          created_at?: string;
-        };
+        Insert: ClientInsert;
+        Update: Partial<ClientInsert>;
         Relationships: [];
       };
       holds: {
@@ -189,6 +182,10 @@ export type Database = {
       };
       confirm_hold: {
         Args: { p_hold_id: string };
+        Returns: Json;
+      };
+      set_insurance_status: {
+        Args: { p_client_id: string; p_status: string };
         Returns: Json;
       };
     };

@@ -42,3 +42,18 @@ export async function createClientCard(_previous: CardFormState, formData: FormD
   revalidatePath("/slots");
   redirect(`/clients/${data.id}?ok=created`);
 }
+
+// Статус перевірки страхування (AC-INS-02…05): роль і значення перевіряє функція бази, не дія — Server Action можна
+// викликати напряму. Будь-який код, крім OK, повертає на картку з ?error=<код>.
+export async function setInsuranceStatus(formData: FormData): Promise<void> {
+  const clientId = String(formData.get("client_id") ?? "");
+  const status = String(formData.get("insurance_status") ?? "");
+  const viewer = await requireViewer();
+
+  const { data, error } = await viewer.supabase.rpc("set_insurance_status", { p_client_id: clientId, p_status: status });
+  const code = error || !data || typeof data !== "object" || Array.isArray(data) ? undefined : data.code;
+  if (code !== "OK") redirect(`/clients/${clientId}?error=${encodeURIComponent(String(code ?? "SAVE_FAILED"))}`);
+
+  revalidatePath(`/clients/${clientId}`);
+  redirect(`/clients/${clientId}?ok=insurance`);
+}
