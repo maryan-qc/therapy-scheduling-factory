@@ -1,0 +1,16 @@
+{
+  "status": "failed",
+  "costUsd": 0,
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 0
+  },
+  "model": "claude-sonnet-5-5",
+  "denials": [],
+  "resultText": "Not logged in · Please run /login",
+  "sessionId": "6d46bdda-8083-4c2b-8e0e-0749f931a105",
+  "durationMs": 1422,
+  "turns": 1
+}
